@@ -76,6 +76,15 @@ class LoginViewController: UIViewController {
                                                             style: .done,
                                                             target: self,
                                                             action:#selector(didTappedRegister))
+        
+        loginButton.addTarget(self,
+                              action: #selector(loginButtonTapped),
+                              for: .touchUpInside)
+        
+        
+        emailField.delegate = self
+        passwordField.delegate = self
+        
       
         // add subviews
         view.addSubview(scrollView)
@@ -110,6 +119,23 @@ class LoginViewController: UIViewController {
         
     }
     
+    @objc private func  loginButtonTapped() {
+        guard let email = emailField.text, let password = passwordField.text,
+              !email.isEmpty, !password.isEmpty, password.count >= 6  else{
+                  return
+              }
+        // Firebase log In
+    }
+    
+    func alertUserLoginError() {
+        
+        let alert = UIAlertController(title: "Woops", message: "Por favor verifique se os dados inseridos estão corretos!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Voltar", style: .cancel, handler: nil))
+        present(alert, animated: true)
+        
+    }
+    
+    
     
     @objc private func didTappedRegister(){
         let vc = RegisterViewController()
@@ -120,5 +146,19 @@ class LoginViewController: UIViewController {
 
 }
 
-// 23:46
-
+extension LoginViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textfield == emailField {
+            passwordField.becomeFirstResponder()
+        }
+        
+        if textfield == passwordField {
+            loginButtonTapped()
+        }
+        return true
+        
+    }
+    
+}
