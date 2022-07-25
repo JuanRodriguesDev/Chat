@@ -2,7 +2,7 @@
 //  LoginViewController.swift
 //  Chat
 //
-//  Created by Paulo Koga on 12/07/22.
+//  Created by Juan Rodrigues on 12/07/22.
 //
 
 import UIKit
@@ -120,8 +120,13 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func  loginButtonTapped() {
+        
+        emailField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        
         guard let email = emailField.text, let password = passwordField.text,
               !email.isEmpty, !password.isEmpty, password.count >= 6  else{
+                  alertUserLoginError()
                   return
               }
         // Firebase log In
@@ -150,11 +155,9 @@ extension LoginViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        if textfield == emailField {
+        if textField == emailField {
             passwordField.becomeFirstResponder()
-        }
-        
-        if textfield == passwordField {
+        } else if textField == passwordField {
             loginButtonTapped()
         }
         return true
