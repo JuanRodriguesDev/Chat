@@ -130,11 +130,12 @@ class RegisterViewController: UIViewController {
         
 
         imageView.addGestureRecognizer(gesture)
-        
+         
     }
     
     @objc private func didTapChangeProfilePic() {
-        print("Change pic Called")
+        presentPhotoActionSheet()
+        
     }
     
     
@@ -223,4 +224,36 @@ extension RegisterViewController: UITextFieldDelegate {
         
     }
     
+}
+
+
+extension RegisterViewController: UIImagePickerControllerDelegate {
+    
+    func presentPhotoActionSheet() {
+        let actionSheet = UIAlertController(title: "Foto de Perfil",
+                                            message: "Como voce prefere selecionar uma foto?",
+                                            preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel",
+                                            style: .cancel,
+                                            handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Tirar Foto",
+                                            style: .default,
+                                            handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Escolher Foto",
+                                            style: .default,
+                                            handler: nil))
+        
+        present(actionSheet,animated: true)
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+    }
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+    }
 }
