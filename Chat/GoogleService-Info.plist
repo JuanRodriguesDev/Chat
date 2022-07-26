@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>164039350855-7dauul8nplc6vt4ut4qctbn8fpac6vq0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.164039350855-7dauul8nplc6vt4ut4qctbn8fpac6vq0</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCTv5QRBnhSTQfXQHJXm3-0ZxTSqmlZFog</string>
+	<key>GCM_SENDER_ID</key>
+	<string>164039350855</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>Juan.Chat</string>
+	<key>PROJECT_ID</key>
+	<string>mychat-app-ce4c7</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mychat-app-ce4c7.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:164039350855:ios:97058dc860c46662bdaf62</string>
+</dict>
+</plist>

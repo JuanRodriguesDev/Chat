@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
 
@@ -18,6 +19,9 @@ class RegisterViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "register")
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
         return imageView
     }()
     
@@ -150,6 +154,8 @@ class RegisterViewController: UIViewController {
                                  y: 20,
                                  width: size,
                                  height: size)
+        imageView.layer.cornerRadius = imageView.width/2.0
+       
         firstNameField.frame = CGRect(x: 30,
                                   y: imageView.bottom+10,
                                   width: scrollView.width-60,
@@ -186,7 +192,13 @@ class RegisterViewController: UIViewController {
                   alertUserLoginError()
                   return
               }
-        // Firebase log In
+       
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
+            guard error == nil else {
+                print("Erro ao criar o usuario")
+                return 
+            }
+        })
     }
     
     func alertUserLoginError() {
@@ -227,7 +239,7 @@ extension RegisterViewController: UITextFieldDelegate {
 }
 
 
-extension RegisterViewController: UIImagePickerControllerDelegate {
+extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func presentPhotoActionSheet() {
         let actionSheet = UIAlertController(title: "Foto de Perfil",
@@ -239,21 +251,55 @@ extension RegisterViewController: UIImagePickerControllerDelegate {
                                             handler: nil))
         actionSheet.addAction(UIAlertAction(title: "Tirar Foto",
                                             style: .default,
-                                            handler: nil))
+                                            handler: {[weak self] _ in
+            
+                                            self?.presentCamera()
+            
+        }))
         actionSheet.addAction(UIAlertAction(title: "Escolher Foto",
                                             style: .default,
-                                            handler: nil))
+                                            handler: {[weak self] _ in
+            
+                                            self?.presentPhotoPicker()
+        }))
         
         present(actionSheet,animated: true)
     }
     
+    func presentCamera() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+         
+    }
+    
+    func presentPhotoPicker() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+         
+    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
+        picker.dismiss(animated: true, completion: nil)
+           
+        guard  let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+        self.imageView.image = selectedImage
     }
     
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
+        picker.dismiss(animated: true, completion: nil)
     }
 }
+
+
+//result error https://github-com.translate.goog/firebase/firebase-ios-sdk/issues/5987?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt-BR&_x_tr_pto=sc
+// 8:58
+//
