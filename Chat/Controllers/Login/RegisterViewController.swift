@@ -17,7 +17,7 @@ class RegisterViewController: UIViewController {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "register")
+        imageView.image = UIImage(systemName: "camera.circle")
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 2
@@ -192,22 +192,40 @@ class RegisterViewController: UIViewController {
                   alertUserLoginError()
                   return
               }
-       
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
-            guard let result = authResult,  error == nil else {
-                print("Erro ao criar o usuario")
-                return 
+       // firebase log In
+        
+        DatabaseManager.shared.userExists(with: email, completion: {[weak self]  exists in
+            guard let strongSelf = self else {
+                return
             }
             
-            let user = result.user
-            print("Usuario criado: \(user)")
+            guard !exists else {
+                // user already exists
+                strongSelf.alertUserLoginError(menssage: "O email usado para criar a conta ja está em uso")
+                return
+            }
+          
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: {  authResult, error in
+                guard authResult != nil,  error == nil else {
+                    print("Erro ao criar o usuario")
+                    return
+                }
+                
+                DatabaseManager.shared.insertUser(With: ChatAppUser(firstName: firstName,
+                                                                    lastName: lastName,
+                                                                    emailAddress: email))
+                
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+
+            })
         })
+        
     }
     
-    func alertUserLoginError() {
+    func alertUserLoginError(menssage: String = "Por favor verifique se os dados inseridos estão corretos para criar uma conta!") {
         
         let alert = UIAlertController(title: "Woops",
-                                      message: "Por favor verifique se os dados inseridos estão corretos para criar uma conta!",
+                                      message: menssage,
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Voltar",
                                       style: .cancel, handler: nil))
