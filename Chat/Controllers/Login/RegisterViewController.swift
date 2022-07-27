@@ -194,10 +194,13 @@ class RegisterViewController: UIViewController {
               }
        
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
-            guard error == nil else {
+            guard let result = authResult,  error == nil else {
                 print("Erro ao criar o usuario")
                 return 
             }
+            
+            let user = result.user
+            print("Usuario criado: \(user)")
         })
     }
     

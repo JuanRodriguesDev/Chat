@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		204D87E84B61415ECBBE7DE1 /* Pods_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2593140B098218742527C1D /* Pods_Chat.framework */; };
 		4E1A8E0E2890612D009A983B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E1A8E0D2890612D009A983B /* GoogleService-Info.plist */; };
+		4E3732E9289173E200F26DD7 /* Pods_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2593140B098218742527C1D /* Pods_Chat.framework */; };
 		4ED52AE0287DBF2100658519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED52ADF287DBF2100658519 /* AppDelegate.swift */; };
 		4ED52AE2287DBF2100658519 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED52AE1287DBF2100658519 /* SceneDelegate.swift */; };
 		4ED52AE4287DBF2100658519 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED52AE3287DBF2100658519 /* ConversationsViewController.swift */; };
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				204D87E84B61415ECBBE7DE1 /* Pods_Chat.framework in Frameworks */,
+				4E3732E9289173E200F26DD7 /* Pods_Chat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,7 +168,6 @@
 				4340B755F302A409E0FFCE34 /* Pods-Chat.debug.xcconfig */,
 				D4FD071770F938FEAD025FD7 /* Pods-Chat.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -349,7 +348,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -462,6 +461,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = Juan.Chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -493,6 +493,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = Juan.Chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
