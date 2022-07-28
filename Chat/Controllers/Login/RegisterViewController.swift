@@ -322,5 +322,4 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
 
 
 //result error https://github-com.translate.goog/firebase/firebase-ios-sdk/issues/5987?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt-BR&_x_tr_pto=sc
-// 8:58
-//
+
