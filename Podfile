@@ -10,4 +10,9 @@ target 'Chat' do
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 
+#Fabebook
+
+pod 'FBSDKLoginKit'
+    
+
 end

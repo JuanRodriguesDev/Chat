@@ -1,8 +1,8 @@
-//
+
 //  ProfileViewController.swift
 //  Chat
 //
-//  Created by Paulo Koga on 12/07/22.
+//  Created by Juan Rodrigues on 12/07/22.
 //
 
 import UIKit
@@ -13,11 +13,12 @@ class ProfileViewController: UIViewController {
    
     @IBOutlet var tableView: UITableView!
     
-    let data = ["Log out"]
+    let data = ["Desconectar"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableView.self, forCellReuseIdentifier: "cell")
+        tableView.register(UITableViewCell.self,
+                           forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -43,20 +44,36 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        do {
-           try  FirebaseAuth.Auth.auth().signOut()
+        let actionSheet = UIAlertController(title: "",
+                                      message: "",
+                                      preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Log out",
+                                      style: .destructive,
+                                      handler: {[weak self] _ in
+        
+            guard let strongSelf = self else {
+                return
+            }
             
-            let vc = LoginViewController()
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            
-            present(vc, animated: false)
-        }
-        catch {
-            print("Falha ao deslogar")
-        }
+            do {
+               try  FirebaseAuth.Auth.auth().signOut()
+                
+                let vc = LoginViewController()
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                strongSelf.present(nav, animated: true)
+            }
+            catch {
+                print("Falha ao deslogar")
+            }
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancelar",
+                                            style: .cancel,
+                                            handler: nil))
+        
+        present(actionSheet, animated: true)
+        
     }
 }
-
-//https://www.reddit.com/r/swift/comments/vebepu/thread_1_must_pass_a_class_of_kind_uitableviewcell/
-// 10:58
