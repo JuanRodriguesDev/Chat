@@ -12,7 +12,8 @@ pod 'Firebase/Database'
 
 #Fabebook
 
-pod 'FBSDKLoginKit'
-    
+pod 'FacebookCore'
+pod 'FacebookLogin'
+
 
 end
