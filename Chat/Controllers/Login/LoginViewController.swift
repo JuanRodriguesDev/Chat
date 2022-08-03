@@ -71,7 +71,11 @@ class LoginViewController: UIViewController {
         return button
     }()
     
-  private let FacebookLoginButton = FBLoginButton()
+    private let FacebookLoginButton: FBLoginButton = {
+        let button = FBLoginButton()
+        button.permissions = ["Email,public_profile"]
+        return button
+    }()
 
     
     override func viewDidLoad() {
@@ -91,6 +95,9 @@ class LoginViewController: UIViewController {
         
         emailField.delegate = self
         passwordField.delegate = self
+        
+        
+        FacebookLoginButton.delegate = self
         
       
         // add subviews
@@ -190,5 +197,36 @@ extension LoginViewController: UITextFieldDelegate {
     }
     
 }
+
+extension LoginViewController: LoginButtonDelegate {
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        // no operation
+    }
+    
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        guard let token = result?.token?.tokenString else {
+            print("Usuario falhou em logar com o Facebook")
+            return
+        }
+        
+        let credential = FacebookAuthProvider.credential(withAccessToken: token)
+       
+        
+        FirebaseAuth.Auth.auth().signIn(with: credential, completion: { [weak self] authResult, error in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            guard authResult != nil, error == nil else {
+                print("Credenciais de login com o facebook falhou")
+                return
+            }
+            print("Sucesso ao logar!!")
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+
+        })
+    }
+}
+
 
 // 22:37
