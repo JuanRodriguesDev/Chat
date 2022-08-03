@@ -15,7 +15,7 @@ final class DatabaseManager {
     
   
 }
-// MARK:- Account management
+// MARK: - Account management
 
 extension DatabaseManager {
     

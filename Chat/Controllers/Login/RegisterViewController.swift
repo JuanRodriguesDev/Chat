@@ -13,8 +13,6 @@ class RegisterViewController: UIViewController {
         return scrollView
     }()
     
-    
-    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "camera.circle")
