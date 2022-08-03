@@ -73,7 +73,7 @@ class LoginViewController: UIViewController {
     
     private let FacebookLoginButton: FBLoginButton = {
         let button = FBLoginButton()
-        button.permissions = ["Email,public_profile"]
+        button.permissions = ["email,public_profile"]
         return button
     }()
 
@@ -218,7 +218,10 @@ extension LoginViewController: LoginButtonDelegate {
             }
             
             guard authResult != nil, error == nil else {
-                print("Credenciais de login com o facebook falhou")
+                if let error = error {
+                    print("Credenciais de login com o facebook falhou \(error)")
+
+                }
                 return
             }
             print("Sucesso ao logar!!")
@@ -229,4 +232,4 @@ extension LoginViewController: LoginButtonDelegate {
 }
 
 
-// 22:37
+// 38:46
