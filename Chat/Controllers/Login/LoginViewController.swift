@@ -208,6 +208,35 @@ extension LoginViewController: LoginButtonDelegate {
             print("Usuario falhou em logar com o Facebook")
             return
         }
+        let facebookRequest = FacebookCore.GraphRequest(graphPath: "me", parameters: ["fields":"email,name"], tokenString: token, version: nil, httpMethod: .get)
+
+        
+        
+        facebookRequest.start(completionHandler: { _ , result, error in
+            guard let result = result as? [String: Any],
+                  error == nil else {
+                print ("falha ao fazer o facebook graph request")
+                return
+            }
+            print("\(result)")
+            guard let userName = result["name"] as? String,
+                  let email = result["email"] as? String else {
+                      print("falha ao pegar nome e email atraves ddo fb result")
+                      return
+                  }
+            let nameComponents = userName.components(separatedBy: " ")
+            guard nameComponents.count == 2 else {
+                return
+            }
+            let firstName = nameComponents[0]
+            let lastName = nameComponents[1]
+            
+            DatabaseManager.shared.userExists(with: email, completion: {exists in
+                if !exists {
+                    DatabaseManager.shared.insertUser(With: ChatAppUser(firstName: firstName, lastName: lastName, emailAddress: email))
+                }
+            })
+        })
         
         let credential = FacebookAuthProvider.credential(withAccessToken: token)
        
