@@ -15,5 +15,8 @@ pod 'Firebase/Database'
 pod 'FacebookCore'
 pod 'FacebookLogin'
 
+#google 
+pod 'Google/SignIn'
+
 
 end
